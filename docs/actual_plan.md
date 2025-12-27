@@ -1,68 +1,78 @@
+Skvělá práce! Máme za sebou kritický milník. Implementací **Upgrade Systému** se z technického dema stala skutečná hra, která má smyčku (Core Loop) a motivuje hráče hrát dál.
 
-## 📊 Aktuální stav projektu: Fáze 1 (Prototyp)
+Tímto jsme se přehoupli do **poloviny Fáze 2**. Nyní, když logika funguje, je čas zbavit se "programátorské grafiky" (barevných čtverců) a začít budovat atmosféru, a následně přidat slibovaný "Diablo-like" loot.
 
-**Status:** 75 % hotovo
-
-V této fázi jsme se zaměřili na technickou stabilitu a výkon. Díky **Object Poolingu** tvá hra zvládne stovky objektů bez sekání, což je pro žánr "bullet heaven" kritické.
-
-### ✅ Hotové části (Dokončené moduly)
-
-1. **Engine & Infrastruktura (`config.js`, `main.js`)**
-* Nastavení Phaser 3 s WebGL renderingem.
-* Aktivace Arcade Physics pro detekci kolizí.
-* Struktura pro importování modulů (ES6 Modules).
-
-
-2. **Entita Hráče (`GameScene.js`)**
-* Pohyb ve všech 8 směrech (WASD + Šipky).
-* **Normalizace pohybu:** Hráč neběhá rychleji šikmo.
-* Hranice světa: Hráč nemůže utéct z obrazovky.
-
-
-3. **Systém Nepřátel (`Enemy.js` + Pooling)**
-* **Object Pooling:** Recyklace červených čtverců pro úsporu paměti.
-* **AI (Seeker):** Monstra automaticky pronásledují hráče.
-* **Spawn Logic:** Nepřátelé se objevují náhodně za okrajem obrazovky.
-
-
-4. **Bojový systém (`Projectile.js` + Auto-combat)**
-* **Targeting:** Vyhledání nejbližšího nepřítele pomocí vzdálenostních vektorů.
-* **Automatizace:** Hráč střílí v nastaveném intervalu bez nutnosti klikat.
-* **Collision Layer:** Detekce zásahu střela->nepřítel a hráč->nepřítel.
-
-
+Zde je aktualizovaný stav projektu a podrobný plán pro dalších 20 kroků.
 
 ---
 
-## 📝 Detailní To-Do Plán (Co nás čeká)
+## 📊 Aktuální Stav Projektu: Soul Harvest (Verze 0.3)
 
-Nyní, když "čtverečky" fungují, musíme z nich udělat skutečnou hru s pravidly a vizuální odezvou.
+**Celkový postup:** ~35 % finální hry
+**Fáze:** Přechod z Prototypu do Alpha verze
 
-### 1. Dokončení Fáze 1: Feedback & Životy (Příští krok)
+### ✅ Co je hotové (Done):
 
-* [ ] **Health System:** Přidat hráči `HP` (životy) a nepřátelům `damage` (poškození).
-* [ ] **Game Over:** Obrazovka, která se objeví, když hráč ztratí všechny životy.
-* [ ] **Floating Combat Text:** Čísla, která vyletí z nepřítele, když ho zasáhneš.
-* [ ] **Visual Juice:** Záblesk nepřítele do bílé barvy při zásahu (Flash effect).
+1. **Pohyb:** Plynulý WASD pohyb s normalizací vektorů.
+2. **Boj:** Automatická střelba na nejbližší cíl, projektily, kolize.
+3. **Nepřátelé:** Pooling systém, AI pronásledování, HP systém.
+4. **Zdroje:** Munice, přebíjení (Reload mechanika), UI ukazatele.
+5. **Progrese:** XP Orby, Levelování, Zastavení hry, Výběr z náhodných vylepšení.
 
-### 2. Fáze 2: RPG Prvky a Statistiky
+### 🚧 Co chybí (Missing):
 
-* [ ] **Experience System:** Nepřátelé po smrti nechají "duši" (XP krystal).
-* [ ] **Level Up:** Při nasbírání XP se zastaví čas a hráč si vybere vylepšení.
-* [ ] **Data Structures:** Vytvoření souboru `Stats.js` pro výpočet síly útoku a obrany.
-
-### 3. Fáze 3: Vizuál a Prostředí
-
-* [ ] **Sprites:** Výměna barevných čtverců za skutečné pixel-art postavy.
-* [ ] **Animations:** Rozpohybování nohou hráče a monster.
-* [ ] **Map System:** Výměna šedého pozadí za dlaždicovou podlahu (Tilemap).
+* Grafika (Sprites & Animace).
+* Zvuky a Hudba.
+* Loot (Předměty, Inventář).
+* Mapy (Dungeon Generation).
 
 ---
 
-## 💡 Základní informace o příštím kroku: "The Game Loop"
+## 📝 To-Do List: Dalších 20 Kroků
 
-Aby se z prototypu stala hra, musíme zavést **princip prohry**. Zatím se v konzoli vypisuje "Hráč zasažen", ale nic se neděje.
+Tento plán je rozdělen do dvou logických bloků. Nejprve hru "oblečeme" (Vizuál), poté jí dáme "hloubku" (Loot).
 
-V příští kapitole vytvoříme **UI (User Interface)** – tedy ukazatel životů (HP Bar) – a naučíme hru reagovat na smrt hráče. To je důležité pro začátečníky, aby pochopili, jak přenášet data mezi logikou (fyzikou) a tím, co hráč vidí na obrazovce.
+### Blok A: Vizuál, Audio a "Juice" (Kroky 1–10)
 
-**Jsi připraven přejít na Kapitolu 5: Systém životů a uživatelské rozhraní?**
+*Cíl: Hra přestane vypadat jako geometrické cvičení a začne vypadat jako RPG.*
+
+1. **Asset Loader:** Vytvoření `PreloadScene.js` pro centrální načítání obrázků a zvuků (aby se nepletly v `GameScene`).
+2. **Sprite Hráče:** Nahrazení zeleného čtverce za statický obrázek hrdiny.
+3. **Animace Hráče:** Přidání animací `walk_down`, `walk_up`, `idle` (rozpohybování nohou).
+4. **Sprite Nepřátel:** Nahrazení červených čtverců za sprity (např. kostlivci nebo netopýři).
+5. **Flip Mechanics:** Logika pro otáčení spritů doleva/doprava podle směru pohybu.
+6. **Pozadí (Svět):** Nahrazení černé barvy za nekonečnou texturu podlahy (TilingSprite).
+7. **Zvukový Manažer:** Implementace zvuků pro střelbu (`shoot.wav`) a zásah (`hit.wav`).
+8. **Floating Combat Text:** Čísla poškození, která vyletí z nepřítele a zmizí (velmi důležité pro pocit síly).
+9. **Vylepšený Feedback:** Částicové efekty (Particles) při smrti nepřítele (krev nebo kosti).
+10. **Hlavní Menu:** Jednoduchá scéna `MenuScene` s tlačítkem "Start Game".
+
+### Blok B: Loot Systém a Inventář (Kroky 11–20)
+
+*Cíl: Implementace "Diablo" prvků – sbírání předmětů a stavění buildu.*
+
+11. **Item Class:** Vytvoření datové struktury pro předměty (Název, Rarita, Staty).
+12. **Loot Drop:** Šance, že nepřítel po smrti upustí místo XP truhlu nebo předmět.
+13. **Pickup Interaction:** Logika pro sebrání předmětu (klávesa E nebo automaticky).
+14. **Inventory UI (Backend):** Pole (Array), které drží hráčovy předměty.
+15. **Inventory UI (Frontend):** Vykreslení mřížky inventáře (Grid) na obrazovku (klávesa I).
+16. **Tooltipy:** Zobrazení statistik předmětu po najetí myší.
+17. **Equip System:** Logika "nasazení" předmětu (přepočítání statů hráče podle vybavení).
+18. **Rarity System:** Generátor barev a statů (Běžné, Vzácné, Legendární).
+19. **Weapon Variety:** Implementace různých typů útoků (nejen jedna střela, ale např. brokovnice nebo orbitální štít).
+20. **Save/Load:** Ukládání postupu (Local Storage), aby hráč nepřišel o levely/předměty po zavření prohlížeče.
+
+---
+
+### 💡 Doporučení pro další krok
+
+Abychom mohli začít s **Blokem A**, budeme potřebovat grafiku. Pro výukové účely doporučuji použít nějaký **Free Asset Pack** (např. z *itch.io*), který obsahuje:
+
+* Postavu (Top-down view).
+* Pár monster.
+* Dlaždice podlahy (Tileset).
+
+**Mám připravit Kapitolu 8: "Asset Loader a První Sprity", kde se naučíme načítat obrázky a nahradíme ty barevné čtverce?**
+
+
+

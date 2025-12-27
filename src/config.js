@@ -1,3 +1,4 @@
+import MenuScene from './scenes/MenuScene.js'; // Import Menu
 import GameScene from './scenes/GameScene.js';
 
 export const GameConfig = {
@@ -6,13 +7,14 @@ export const GameConfig = {
     height: 720,
     parent: 'game-container',
     backgroundColor: '#1a1a1a',
-    pixelArt: true, // Zamezí rozmazání pixelových spritů
+    pixelArt: true,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 0 }, // RPG shora dolů nepotřebuje gravitaci
-            debug: true // Zapne rámečky kolem kolizí (užitečné při vývoji)
+            gravity: { y: 0 },
+            debug: false // Vypneme debug rámečky pro hezčí vzhled
         }
     },
-    scene: [GameScene] // Registrace naší scény
+    // DŮLEŽITÉ: MenuScene musí být v poli PRVNÍ
+    scene: [MenuScene, GameScene] 
 };
